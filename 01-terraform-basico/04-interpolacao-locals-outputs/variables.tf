@@ -1,7 +1,7 @@
 variable "environment" {
   type        = string
   description = ""
-  default = "dev"
+  default     = "dev"
 }
 
 variable "aws_region" {
@@ -13,5 +13,5 @@ variable "aws_region" {
 variable "aws_profile" {
   type        = string
   description = ""
-  default = "terraform-foundations-udemy"
+  default     = "terraform-foundations-udemy"
 }
