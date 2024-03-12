@@ -7,6 +7,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.37.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.6.0"
+    }
   }
 }
 
@@ -14,13 +18,5 @@ terraform {
 provider "aws" {
   region  = var.aws_region
   profile = var.aws_profile
-}
-
-
-resource "aws_instance" "web" {
-  ami           = var.instance_ami
-  instance_type = var.instance_type
-
-  tags = var.instance_tags
 }
 
