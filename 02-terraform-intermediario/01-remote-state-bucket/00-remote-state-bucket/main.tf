@@ -18,10 +18,6 @@ data "aws_caller_identity" "current" {}
 resource "aws_s3_bucket" "remote-state" {
   bucket = "tfstate-${data.aws_caller_identity.current.account_id}"
 
-  # versioning {
-  #   enabled = true
-  # }
-
   tags = {
     Description = "Stores terraform remote state files"
     ManagedBy   = "Terraform"
@@ -29,6 +25,15 @@ resource "aws_s3_bucket" "remote-state" {
     CreatedAt   = "2024-03-19"
   }
 }
+
+resource "aws_s3_bucket_versioning" "versioning-state" {
+  bucket = aws_s3_bucket.remote-state.bucket
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 
 resource "aws_dynamodb_table" "lock-table" {
   name           = "tflock-${aws_s3_bucket.remote-state.bucket}"
